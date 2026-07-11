@@ -127,7 +127,10 @@
     height: 100%;
     object-fit: contain;
     display: block;
+    opacity: 0;
+    transition: opacity 0.25s ease;
   }
+  .card img.loaded { opacity: 1; }
   .count-badge {
     position: absolute;
     top: 10px;
@@ -268,10 +271,7 @@
 
 <script>
   // Captions below reflect the actual published tear sheets (headline, byline,
-  // date and photo credit as shown on-page). One item is flagged with a note:
-  // the file is named msn-shabana-mahmood.webp but the tear sheet itself is an
-  // MSN "11 Unexpected Queer and Gay Icons" slideshow -- check the filename
-  // before publishing.
+  // date and photo credit as shown on-page).
   const stories = [
     {
       publication: "Forsvarets Forum",
@@ -352,7 +352,7 @@
     {
       publication: "MSN",
       title: "11 Unexpected Queer and Gay Icons",
-      description: "MSN slideshow feature. Note: this file is named msn-shabana-mahmood.webp but the tear sheet shown is this Pride-event slideshow, not a Shabana Mahmood story — worth double-checking before publishing.",
+      description: "MSN slideshow feature drawing on Ian Davidson's Pride-event coverage.",
       credit: "Ian Davidson / SOPA Images / LightRocket via Getty Images",
       images: ["msn-shabana-mahmood.webp"]
     }
@@ -402,7 +402,7 @@
       card.innerHTML = `
         <button type="button" class="open-btn" aria-label="Open ${story.publication} tear sheet: ${story.title}">
           <div class="card-media">
-            <img src="${story.images[0]}" alt="${story.publication} tear sheet: ${story.title}" loading="lazy">
+            <img src="${story.images[0]}" alt="${story.publication} tear sheet: ${story.title}">
             ${badge}
           </div>
         </button>
@@ -417,6 +417,8 @@
       const image = card.querySelector("img");
       const button = card.querySelector(".open-btn");
       image.onerror = () => card.remove();
+      image.onload = () => image.classList.add("loaded");
+      if (image.complete && image.naturalWidth > 0) image.classList.add("loaded");
       button.onclick = () => openLightbox(index, 0);
       gallery.appendChild(card);
     });
