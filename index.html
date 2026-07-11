@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ian Davidson Tear Sheets</title>
+  <style>
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f1ec;color:#1f2933}
+    header{background:#111827;color:white;padding:48px 20px;text-align:center}
+    h1{margin:0;font-size:clamp(2rem,5vw,4rem)}
+    header p{max-width:760px;margin:16px auto 0;color:#d1d5db;font-size:1.1rem}
+    main{max-width:1200px;margin:auto;padding:28px 16px 60px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .card{background:white;border:1px solid #ddd;border-radius:8px;overflow:hidden;box-shadow:0 6px 18px #0001}
+    .card img{width:100%;height:280px;object-fit:cover;display:block;cursor:pointer;background:#eee}
+    .card div{padding:14px}
+    .card h2{font-size:1rem;margin:0 0 6px}
+    .card p{margin:0;color:#667085;font-size:.92rem}
+    footer{text-align:center;padding:28px;color:#667085}
+    .lightbox{position:fixed;inset:0;background:#000d;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:96vw;max-height:92vh;background:white}
+    .close{position:fixed;top:18px;right:22px;background:white;border:0;border-radius:999px;width:42px;height:42px;font-size:24px;cursor:pointer}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ian Davidson Tear Sheets</h1>
+    <p>Published editorial and press photography tear sheets, collected as a simple portfolio for editors, agencies and clients.</p>
+  </header>
+
+  <main>
+    <div class="grid" id="gallery"></div>
+  </main>
+
+  <footer>Ian Davidson - Editorial & Press Photographer</footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="close" onclick="closeLightbox()">×</button>
+    <img id="lightboxImage" alt="">
+  </div>
+
+  <script>
+    const files = [
+      "forsvarets-forum-dan-jarvis.webp",
+      "forsvarets-forum-dan-jarvis (7).webp",
+      "guardian-capita-pensions.webp",
+      "guardian-capita-pensions (6).webp",
+      "guardian-peter-kyle (2).webp",
+      "guardian-shabana-mahmood-asylum.webp",
+      "guardian-shabana-mahmood-asylum (9).webp",
+      "mirror-shabana-mahmood.webp",
+      "mirror-shabana-mahmood (4).webp",
+      "newsela-girls-who-game.webp",
+      "newsela-girls-who-game (5).webp",
+      "novosti-volodymyr-zelenskyy.webp",
+      "novosti-volodymyr-zelenskyy (8).webp"
+    ];
+
+    const gallery = document.getElementById("gallery");
+
+    function titleFromFile(file) {
+      return file
+        .replace(".webp", "")
+        .replace(/\s\(\d+\)/, "")
+        .split("-")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    }
+
+    files.forEach(file => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${file}" alt="${titleFromFile(file)}" loading="lazy">
+        <div>
+          <h2>${titleFromFile(file)}</h2>
+          <p>Published tear sheet</p>
+        </div>
+      `;
+      const img = card.querySelector("img");
+      img.onerror = () => card.remove();
+      img.onclick = () => openLightbox(file, titleFromFile(file));
+      gallery.appendChild(card);
+    });
+
+    function openLightbox(src, alt) {
+      document.getElementById("lightboxImage").src = src;
+      document.getElementById("lightboxImage").alt = alt;
+      document.getElementById("lightbox").classList.add("open");
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").classList.remove("open");
+    }
+  </script>
+</body>
+</html>
