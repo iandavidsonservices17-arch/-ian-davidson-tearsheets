@@ -1,280 +1,368 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ian Davidson Tear Sheets</title>
-  <meta name="description" content="A portfolio of published editorial and press photography tear sheets by Ian Davidson.">
-  <style>
-    :root {
-      --ink: #151923;
-      --muted: #667085;
-      --paper: #f4f1ec;
-      --card: #ffffff;
-      --line: #ddd8cf;
-      --accent: #9b2f21;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--paper);
-      color: var(--ink);
-    }
-
-    header {
-      background: #111722;
-      color: #fff;
-      padding: 58px 20px 54px;
-      text-align: center;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.3rem, 6vw, 5rem);
-      line-height: 1;
-      letter-spacing: 0;
-    }
-
-    header p {
-      max-width: 840px;
-      margin: 18px auto 0;
-      color: #d8dde7;
-      font-size: clamp(1rem, 2.2vw, 1.28rem);
-      line-height: 1.35;
-    }
-
-    header a {
-      color: #fff;
-      font-weight: 700;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 5px;
-    }
-
-    main {
-      max-width: 1480px;
-      margin: 0 auto;
-      padding: 34px 18px 64px;
-    }
-
-    .intro {
-      max-width: 900px;
-      margin: 0 auto 28px;
-      text-align: center;
-      color: #4b5563;
-      line-height: 1.55;
-      font-size: 1rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 22px;
-      align-items: start;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 12px 28px rgba(24, 29, 38, 0.08);
-    }
-
-    .card button {
-      display: block;
-      width: 100%;
-      padding: 0;
-      border: 0;
-      background: #eee;
-      cursor: pointer;
-      text-align: left;
-    }
-
-    .card img {
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      display: block;
-      background: #e7e3db;
-    }
-
-    .caption {
-      padding: 16px 18px 18px;
-    }
-
-    .caption h2 {
-      margin: 0;
-      font-size: 1.08rem;
-      line-height: 1.22;
-    }
-
-    .caption p {
-      margin: 7px 0 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.35;
-    }
-
-    footer {
-      border-top: 1px solid var(--line);
-      text-align: center;
-      padding: 28px 18px 36px;
-      color: #667085;
-      background: #f8f6f2;
-    }
-
-    footer a {
-      color: var(--ink);
-      font-weight: 700;
-    }
-
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 20;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 56px 16px 22px;
-      background: rgba(7, 10, 16, 0.92);
-    }
-
-    .lightbox.open {
-      display: flex;
-    }
-
-    .lightbox img {
-      max-width: 96vw;
-      max-height: 88vh;
-      object-fit: contain;
-      background: #fff;
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
-    }
-
-    .close {
-      position: fixed;
-      top: 14px;
-      right: 16px;
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 999px;
-      background: #fff;
-      color: #111722;
-      font-size: 28px;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    @media (max-width: 640px) {
-      header {
-        padding: 38px 16px 36px;
-      }
-
-      main {
-        padding: 22px 12px 44px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ian Davidson Tear Sheets</title>
+<meta name="description" content="A portfolio of published editorial and press photography tear sheets by Ian Davidson.">
+<style>
+  :root {
+    --ink: #151923;
+    --muted: #667085;
+    --paper: #f4f1ec;
+    --card: #ffffff;
+    --line: #ddd8cf;
+    --accent: #9b2f21;
+    --accent-soft: #f3e2de;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  header {
+    background: #111722;
+    color: #fff;
+    padding: 58px 20px 46px;
+    text-align: center;
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(2.3rem, 6vw, 5rem);
+    line-height: 1;
+  }
+  header p {
+    max-width: 840px;
+    margin: 18px auto 0;
+    color: #d8dde7;
+    font-size: clamp(1rem, 2.2vw, 1.28rem);
+    line-height: 1.35;
+  }
+  header a { color: #fff; font-weight: 700; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+  .stats {
+    margin: 22px auto 0;
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .stats span {
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #aab1c2;
+    border-top: 1px solid rgba(255,255,255,0.25);
+    padding-top: 8px;
+  }
+  .stats strong { display: block; font-size: 1.5rem; color: #fff; letter-spacing: 0; }
+  main { max-width: 1480px; margin: 0 auto; padding: 34px 18px 64px; }
+  .intro {
+    max-width: 900px;
+    margin: 0 auto 26px;
+    text-align: center;
+    color: #4b5563;
+    line-height: 1.55;
+    font-size: 1rem;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin: 0 auto 32px;
+  }
+  .filter {
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.86rem;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .filter:hover { border-color: var(--accent); }
+  .filter.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 24px;
+    align-items: start;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 12px 28px rgba(24, 29, 38, 0.08);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 36px rgba(24, 29, 38, 0.15);
+  }
+  .card button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: #f0ede6;
+    cursor: pointer;
+    text-align: left;
+  }
+  .card-media {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #f0ede6;
+  }
+  .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .caption { padding: 16px 18px 18px; }
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .caption h2 { margin: 0; font-size: 1.05rem; line-height: 1.25; }
+  .caption p { margin: 7px 0 0; color: var(--muted); font-size: 0.92rem; line-height: 1.4; }
+  .caption .credit { margin-top: 10px; font-size: 0.78rem; color: #9aa1b0; }
+  footer {
+    border-top: 1px solid var(--line);
+    text-align: center;
+    padding: 28px 18px 36px;
+    color: #667085;
+    background: #f8f6f2;
+  }
+  footer a { color: var(--ink); font-weight: 700; }
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 16px 22px;
+    background: rgba(7, 10, 16, 0.92);
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 96vw;
+    max-height: 76vh;
+    object-fit: contain;
+    background: #fff;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+  }
+  .lightbox-caption {
+    max-width: 720px;
+    text-align: center;
+    color: #eceef2;
+    margin-top: 16px;
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+  .lightbox-caption strong { color: #fff; }
+  .close {
+    position: fixed;
+    top: 14px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    background: #fff;
+    color: #111722;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+  }
+  .nav:hover { background: rgba(255,255,255,0.25); }
+  .nav.prev { left: 18px; }
+  .nav.next { right: 18px; }
+  @media (max-width: 640px) {
+    header { padding: 38px 16px 32px; }
+    main { padding: 22px 12px 44px; }
+    .grid { grid-template-columns: 1fr; gap: 16px; }
+    .nav { width: 38px; height: 38px; font-size: 18px; }
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Ian Davidson Tear Sheets</h1>
-    <p>Published editorial and press photography tear sheets, collected as a portfolio for editors, agencies and clients.</p>
-    <p><a href="https://www.iandavidsonphotography.com" target="_blank" rel="noopener">www.iandavidsonphotography.com</a></p>
-  </header>
+<header>
+  <h1>Ian Davidson Tear Sheets</h1>
+  <p>Published editorial and press photography tear sheets, collected as a portfolio for editors, agencies and clients.</p>
+  <p><a href="https://www.iandavidsonphotography.com" target="_blank" rel="noopener">www.iandavidsonphotography.com</a></p>
+  <div class="stats" id="stats"></div>
+</header>
 
-  <main>
-    <p class="intro">
-      A selection of published uses of Ian Davidson's editorial and press photography. Tap or click any tear sheet to view it larger.
-    </p>
-    <section class="grid" id="gallery" aria-label="Tear sheet gallery"></section>
-  </main>
+<main>
+  <p class="intro">
+    A selection of published uses of Ian Davidson's editorial and press photography, spanning UK national press,
+    international wire and regional outlets. Filter by publication, or tap or click any tear sheet to view it larger.
+  </p>
 
-  <footer>
-    Ian Davidson - Editorial &amp; Press Photographer<br>
-    <a href="https://www.iandavidsonphotography.com" target="_blank" rel="noopener">www.iandavidsonphotography.com</a>
-  </footer>
+  <div class="filters" id="filters"></div>
 
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="close" type="button" aria-label="Close" onclick="closeLightbox()">×</button>
-    <img id="lightboxImage" alt="">
-  </div>
+  <section class="grid" id="gallery" aria-label="Tear sheet gallery"></section>
+</main>
 
-  <script>
-    const tearSheets = [
-      { file: "forsvarets-forum-dan-jarvis.webp" },
-      { file: "forsvarets-forum-dan-jarvis (7).webp" },
-      { file: "guardian-capita-pensions.webp" },
-      { file: "guardian-capita-pensions (6).webp" },
-      { file: "guardian-peter-kyle (2).webp" },
-      { file: "guardian-shabana-mahmood-asylum.webp" },
-      { file: "guardian-shabana-mahmood-asylum (9).webp" },
-      { file: "mirror-shabana-mahmood.webp" },
-      { file: "mirror-shabana-mahmood (4).webp" },
-      { file: "newsela-girls-who-game.webp" },
-      { file: "newsela-girls-who-game (5).webp" },
-      { file: "novosti-volodymyr-zelenskyy.webp" },
-      { file: "novosti-volodymyr-zelenskyy (8).webp" },
-      { file: "reason-england-fans-world-cup.webp" },
-      { file: "msn-shabana-mahmood.webp" },
-      { file: "ntb-dan-jarvis.webp" }
-    ];
+<footer>
+  Ian Davidson - Editorial &amp; Press Photographer<br>
+  <a href="https://www.iandavidsonphotography.com" target="_blank" rel="noopener">www.iandavidsonphotography.com</a>
+</footer>
 
-    const gallery = document.getElementById("gallery");
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="close" type="button" aria-label="Close" onclick="closeLightbox()">&times;</button>
+  <button class="nav prev" type="button" aria-label="Previous" onclick="stepLightbox(-1)">&#8249;</button>
+  <button class="nav next" type="button" aria-label="Next" onclick="stepLightbox(1)">&#8250;</button>
+  <img id="lightboxImage" alt="">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
 
-    tearSheets.forEach((item, index) => {
+<script>
+  // NOTE: publication + title + description below reflect what's visible on each
+  // tear sheet. A few (flagged verify:true) are best-guess from the filename and
+  // outlet only -- swap in the exact headline/date once confirmed.
+  const tearSheets = [
+    { file: "forsvarets-forum-dan-jarvis.webp", publication: "Forsvarets Forum", title: "Storbritannia: Jarvis utnevnt som ny forsvarsminister", description: "Norwegian defence-affairs coverage of Dan Jarvis's appointment as UK Defence Secretary." },
+    { file: "forsvarets-forum-dan-jarvis (7).webp", publication: "Forsvarets Forum", title: "Storbritannia: Jarvis utnevnt som ny forsvarsminister", description: "Alternate placement of the Forsvarets Forum feature on Dan Jarvis's appointment." },
+    { file: "guardian-capita-pensions.webp", publication: "The Guardian", title: "Capita expects to lose up to £40m over pension scheme fiasco", description: "Guardian business coverage (Zoe Wood) of Capita's public-sector pension scheme failures." },
+    { file: "guardian-capita-pensions (6).webp", publication: "The Guardian", title: "Capita expects to lose up to £40m over pension scheme fiasco", description: "Companion image from the same Guardian piece, showing campaigners' placards outside Capita." },
+    { file: "guardian-peter-kyle (2).webp", publication: "The Guardian", title: "Peter Kyle tells pension funds to 'get off their high horse'", description: "Guardian business-live coverage (Richard Partington) quoting the minister on UK investment policy." },
+    { file: "guardian-shabana-mahmood-asylum.webp", publication: "The Guardian", title: "Shabana Mahmood on new powers to tackle people-smuggling gangs", description: "Guardian coverage of the Home Secretary's announcement on border security and asylum policy." },
+    { file: "guardian-shabana-mahmood-asylum (9).webp", publication: "The Guardian", title: "Shabana Mahmood on new powers to tackle people-smuggling gangs", description: "Alternate placement from the same Guardian story." },
+    { file: "mirror-shabana-mahmood.webp", publication: "Mirror", title: "Shabana Mahmood, Home Secretary", description: "Mirror news coverage featuring the Home Secretary.", verify: true },
+    { file: "mirror-shabana-mahmood (4).webp", publication: "Mirror", title: "Shabana Mahmood, Home Secretary", description: "Alternate placement from the same Mirror story.", verify: true },
+    { file: "newsela-girls-who-game.webp", publication: "Newsela", title: "The Girls Who Game", description: "Classroom-adapted version (Buffalo News / Tribune Content Agency, via Newsela) of a feature on girls building and livestreaming in Minecraft, levelled for upper elementary-middle school." },
+    { file: "newsela-girls-who-game (5).webp", publication: "Newsela", title: "The Girls Who Game", description: "Alternate placement from the same Newsela feature." },
+    { file: "novosti-volodymyr-zelenskyy.webp", publication: "Novosti", title: "Volodymyr Zelenskyy", description: "Regional Balkan press coverage featuring Ukrainian President Volodymyr Zelenskyy.", verify: true },
+    { file: "novosti-volodymyr-zelenskyy (8).webp", publication: "Novosti", title: "Volodymyr Zelenskyy", description: "Alternate placement from the same Novosti story.", verify: true },
+    { file: "reason-england-fans-world-cup.webp", publication: "Reason", title: "England Fans Warned Not To Chant 'Keir Starmer's a Wanker' at World Cup", description: "Reason's coverage of England supporters and crowd conduct at the World Cup, referencing the Prime Minister." },
+    { file: "msn-shabana-mahmood.webp", publication: "MSN", title: "Shabana Mahmood, Home Secretary", description: "MSN syndicated pickup of Home Secretary coverage.", verify: true },
+    { file: "ntb-dan-jarvis.webp", publication: "NTB", title: "Dan Jarvis", description: "Norwegian News Agency (NTB) wire coverage of Dan Jarvis's appointment.", verify: true }
+  ];
+
+  const gallery = document.getElementById("gallery");
+  const filtersEl = document.getElementById("filters");
+  const statsEl = document.getElementById("stats");
+  let activeFilter = "All";
+  let openIndex = -1;
+  let visibleItems = [];
+
+  const publications = ["All", ...Array.from(new Set(tearSheets.map(t => t.publication)))];
+
+  function renderStats() {
+    statsEl.innerHTML = `
+      <span><strong>${tearSheets.length}</strong>Tear sheets</span>
+      <span><strong>${publications.length - 1}</strong>Publications</span>
+    `;
+  }
+
+  function renderFilters() {
+    filtersEl.innerHTML = publications.map(pub =>
+      `<button type="button" class="filter${pub === activeFilter ? " active" : ""}" data-pub="${pub}">${pub}</button>`
+    ).join("");
+    filtersEl.querySelectorAll(".filter").forEach(btn => {
+      btn.addEventListener("click", () => {
+        activeFilter = btn.dataset.pub;
+        renderFilters();
+        renderGallery();
+      });
+    });
+  }
+
+  function renderGallery() {
+    visibleItems = tearSheets.filter(t => activeFilter === "All" || t.publication === activeFilter);
+    gallery.innerHTML = "";
+    visibleItems.forEach((item, index) => {
       const card = document.createElement("article");
       card.className = "card";
       card.innerHTML = `
-        <button type="button" aria-label="Open tear sheet ${index + 1}">
-          <img src="${item.file}" alt="Published tear sheet ${index + 1}" loading="lazy">
+        <button type="button" aria-label="Open ${item.publication} tear sheet: ${item.title}">
+          <div class="card-media">
+            <img src="${item.file}" alt="${item.publication} tear sheet: ${item.title}" loading="lazy">
+          </div>
         </button>
         <div class="caption">
-          <h2>Published Tear Sheet</h2>
-          <p>Editorial publication use of Ian Davidson photography</p>
+          <span class="tag">${item.publication}</span>
+          <h2>${item.title}</h2>
+          <p>${item.description}</p>
+          <p class="credit">Photo: Ian Davidson</p>
         </div>
       `;
-
       const image = card.querySelector("img");
       const button = card.querySelector("button");
-
       image.onerror = () => card.remove();
-      button.onclick = () => openLightbox(item.file, image.alt);
-
+      button.onclick = () => openLightbox(index);
       gallery.appendChild(card);
     });
+  }
 
-    function openLightbox(src, alt) {
-      const box = document.getElementById("lightbox");
-      const image = document.getElementById("lightboxImage");
-      image.src = src;
-      image.alt = alt;
-      box.classList.add("open");
-      box.setAttribute("aria-hidden", "false");
-    }
+  function openLightbox(index) {
+    openIndex = index;
+    const item = visibleItems[index];
+    const box = document.getElementById("lightbox");
+    const image = document.getElementById("lightboxImage");
+    const caption = document.getElementById("lightboxCaption");
+    image.src = item.file;
+    image.alt = `${item.publication} tear sheet: ${item.title}`;
+    caption.innerHTML = `<strong>${item.publication}</strong> &mdash; ${item.title}<br>${item.description}`;
+    box.classList.add("open");
+    box.setAttribute("aria-hidden", "false");
+  }
 
-    function closeLightbox() {
-      const box = document.getElementById("lightbox");
-      box.classList.remove("open");
-      box.setAttribute("aria-hidden", "true");
-    }
+  function stepLightbox(dir) {
+    if (openIndex < 0) return;
+    const next = (openIndex + dir + visibleItems.length) % visibleItems.length;
+    openLightbox(next);
+  }
 
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        closeLightbox();
-      }
-    });
-  </script>
+  function closeLightbox() {
+    const box = document.getElementById("lightbox");
+    box.classList.remove("open");
+    box.setAttribute("aria-hidden", "true");
+    openIndex = -1;
+  }
+
+  document.addEventListener("keydown", event => {
+    if (!document.getElementById("lightbox").classList.contains("open")) return;
+    if (event.key === "Escape") closeLightbox();
+    if (event.key === "ArrowRight") stepLightbox(1);
+    if (event.key === "ArrowLeft") stepLightbox(-1);
+  });
+
+  renderStats();
+  renderFilters();
+  renderGallery();
+</script>
 </body>
 </html>
