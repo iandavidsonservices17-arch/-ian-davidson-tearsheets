@@ -279,7 +279,7 @@
       description: "Den britiske sikkerhetsministeren er utnevnt til toppjobben i Forsvarsdepartementet, etter at John Healey trakk seg i går.",
       date: "12 Jun 2026",
       credit: "Ian Davidson / Alamy Live News / NTB",
-      images: ["forsvarets-forum-dan-jarvis.webp", "forsvarets-forum-dan-jarvis (7).webp"]
+      images: ["forsvarets-forum-dan-jarvis.webp"]
     },
     {
       publication: "The Guardian",
@@ -288,7 +288,7 @@
       byline: "Zoe Wood",
       date: "9 Jul 2026",
       credit: "Ian Davidson / Alamy Live News",
-      images: ["guardian-capita-pensions.webp", "guardian-capita-pensions (6).webp"]
+      images: ["guardian-capita-pensions.webp"]
     },
     {
       publication: "The Guardian",
@@ -297,7 +297,7 @@
       byline: "Richard Partington, Senior economics correspondent",
       date: "9 Jul 2026",
       credit: "Ian Davidson / Sopa / Shutterstock",
-      images: ["guardian-peter-kyle (2).webp"]
+      images: ["guardian-peter-kyle.webp"]
     },
     {
       publication: "The Guardian",
@@ -306,7 +306,7 @@
       byline: "Rajeev Syal, Home affairs editor",
       date: "24 Jun 2026",
       credit: "Ian Davidson / SOPA Images / Shutterstock",
-      images: ["guardian-shabana-mahmood-asylum.webp", "guardian-shabana-mahmood-asylum (9).webp"]
+      images: ["guardian-shabana-mahmood-asylum.webp"]
     },
     {
       publication: "Mirror",
@@ -314,7 +314,15 @@
       description: "Coverage following Royal Assent of the National Security (State Threats) Bill, quoting the Home Secretary: “Keeping our country and communities safe is the first duty of any government.”",
       date: "Jul 2026",
       credit: "Ian Davidson / SOPA Images / Shutterstock",
-      images: ["mirror-shabana-mahmood.webp", "mirror-shabana-mahmood (4).webp"]
+      images: ["mirror-shabana-mahmood.webp"]
+    },
+    {
+      publication: "MSN",
+      title: "11 Unexpected Queer and Gay Icons",
+      description: "MSN slideshow feature drawing on Ian Davidson's Pride-event coverage.",
+      date: "20 Jun 2026",
+      credit: "Ian Davidson / SOPA Images / LightRocket via Getty Images",
+      images: ["msn-cheryl-hole.webp"]
     },
     {
       publication: "Newsela",
@@ -323,14 +331,14 @@
       byline: "The Buffalo News, N.Y. / Tribune Content Agency, adapted by Newsela staff",
       date: "originally published 2 Jun 2023",
       credit: "Ian Davidson / Alamy",
-      images: ["newsela-girls-who-game.webp", "newsela-girls-who-game (5).webp"]
+      images: ["newsela-girls-who-game.webp"]
     },
     {
       publication: "Novosti",
       title: "Zelenskyy support survey",
       description: "Serbian-language coverage of a public opinion survey as President Zelenskyy's term enters its seventh year — 88% of respondents said they want change at the top of government.",
       credit: "Ian Davidson / Zuma Press / Profimedia",
-      images: ["novosti-volodymyr-zelenskyy.webp", "novosti-volodymyr-zelenskyy (8).webp"]
+      images: ["novosti-volodymyr-zelenskyy.webp"]
     },
     {
       publication: "Reason",
@@ -339,7 +347,7 @@
       byline: "Reem Ibrahim",
       date: "17 Jun 2026",
       credit: "Ian Davidson / SOPA Images / Sipa USA / Newscom",
-      images: ["reason-keir-starmer.webp", "reason-keir-starmer (3).webp"]
+      images: ["reason-keir-starmer.webp"]
     }
   ];
 
@@ -387,7 +395,7 @@
       card.innerHTML = `
         <button type="button" class="open-btn" aria-label="Open ${story.publication} tear sheet: ${story.title}">
           <div class="card-media">
-            <img src="${story.images[0]}" alt="${story.publication} tear sheet: ${story.title}">
+            <img src="${story.images[0]}?v=20260711c" alt="${story.publication} tear sheet: ${story.title}">
             ${badge}
           </div>
         </button>
@@ -424,7 +432,7 @@
     const image = document.getElementById("lightboxImage");
     const caption = document.getElementById("lightboxCaption");
     const sub = document.getElementById("lightboxSub");
-    image.src = file;
+    image.src = `${file}?v=20260711c`;
     image.alt = `${story.publication} tear sheet: ${story.title}`;
     caption.innerHTML = `<strong>${story.publication}</strong> &mdash; ${story.title}<br>${story.description}`;
     const multi = story.images.length > 1 ? ` &middot; image ${openImageIndex + 1} of ${story.images.length}` : "";
