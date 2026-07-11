@@ -103,7 +103,7 @@
     transform: translateY(-4px);
     box-shadow: 0 18px 36px rgba(24, 29, 38, 0.15);
   }
-  .card button {
+  .card button.open-btn {
     display: block;
     width: 100%;
     padding: 0;
@@ -111,6 +111,7 @@
     background: #f0ede6;
     cursor: pointer;
     text-align: left;
+    position: relative;
   }
   .card-media {
     height: 300px;
@@ -119,6 +120,7 @@
     justify-content: center;
     overflow: hidden;
     background: #f0ede6;
+    position: relative;
   }
   .card img {
     width: 100%;
@@ -126,7 +128,19 @@
     object-fit: contain;
     display: block;
   }
+  .count-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(17, 23, 34, 0.82);
+    color: #fff;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    padding: 4px 9px;
+    border-radius: 999px;
+  }
   .caption { padding: 16px 18px 18px; }
+  .tag-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
   .tag {
     display: inline-block;
     font-size: 0.7rem;
@@ -137,11 +151,12 @@
     background: var(--accent-soft);
     padding: 3px 9px;
     border-radius: 999px;
-    margin-bottom: 8px;
   }
+  .date { font-size: 0.76rem; color: #9aa1b0; }
   .caption h2 { margin: 0; font-size: 1.05rem; line-height: 1.25; }
   .caption p { margin: 7px 0 0; color: var(--muted); font-size: 0.92rem; line-height: 1.4; }
-  .caption .credit { margin-top: 10px; font-size: 0.78rem; color: #9aa1b0; }
+  .caption .byline { margin-top: 8px; font-size: 0.8rem; color: #7c8494; }
+  .caption .credit { margin-top: 4px; font-size: 0.78rem; color: #9aa1b0; }
   footer {
     border-top: 1px solid var(--line);
     text-align: center;
@@ -164,7 +179,7 @@
   .lightbox.open { display: flex; }
   .lightbox img {
     max-width: 96vw;
-    max-height: 76vh;
+    max-height: 72vh;
     object-fit: contain;
     background: #fff;
     box-shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
@@ -178,6 +193,7 @@
     line-height: 1.4;
   }
   .lightbox-caption strong { color: #fff; }
+  .lightbox-sub { margin-top: 10px; font-size: 0.78rem; color: #aab1c2; }
   .close {
     position: fixed;
     top: 14px;
@@ -208,6 +224,7 @@
   .nav:hover { background: rgba(255,255,255,0.25); }
   .nav.prev { left: 18px; }
   .nav.next { right: 18px; }
+  .nav[hidden] { display: none; }
   @media (max-width: 640px) {
     header { padding: 38px 16px 32px; }
     main { padding: 22px 12px 44px; }
@@ -242,47 +259,120 @@
 
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="close" type="button" aria-label="Close" onclick="closeLightbox()">&times;</button>
-  <button class="nav prev" type="button" aria-label="Previous" onclick="stepLightbox(-1)">&#8249;</button>
-  <button class="nav next" type="button" aria-label="Next" onclick="stepLightbox(1)">&#8250;</button>
+  <button class="nav prev" type="button" id="navPrev" aria-label="Previous image" onclick="stepImage(-1)">&#8249;</button>
+  <button class="nav next" type="button" id="navNext" aria-label="Next image" onclick="stepImage(1)">&#8250;</button>
   <img id="lightboxImage" alt="">
   <div class="lightbox-caption" id="lightboxCaption"></div>
+  <div class="lightbox-sub" id="lightboxSub"></div>
 </div>
 
 <script>
-  // NOTE: publication + title + description below reflect what's visible on each
-  // tear sheet. A few (flagged verify:true) are best-guess from the filename and
-  // outlet only -- swap in the exact headline/date once confirmed.
-  const tearSheets = [
-    { file: "forsvarets-forum-dan-jarvis.webp", publication: "Forsvarets Forum", title: "Storbritannia: Jarvis utnevnt som ny forsvarsminister", description: "Norwegian defence-affairs coverage of Dan Jarvis's appointment as UK Defence Secretary." },
-    { file: "forsvarets-forum-dan-jarvis (7).webp", publication: "Forsvarets Forum", title: "Storbritannia: Jarvis utnevnt som ny forsvarsminister", description: "Alternate placement of the Forsvarets Forum feature on Dan Jarvis's appointment." },
-    { file: "guardian-capita-pensions.webp", publication: "The Guardian", title: "Capita expects to lose up to £40m over pension scheme fiasco", description: "Guardian business coverage (Zoe Wood) of Capita's public-sector pension scheme failures." },
-    { file: "guardian-capita-pensions (6).webp", publication: "The Guardian", title: "Capita expects to lose up to £40m over pension scheme fiasco", description: "Companion image from the same Guardian piece, showing campaigners' placards outside Capita." },
-    { file: "guardian-peter-kyle (2).webp", publication: "The Guardian", title: "Peter Kyle tells pension funds to 'get off their high horse'", description: "Guardian business-live coverage (Richard Partington) quoting the minister on UK investment policy." },
-    { file: "guardian-shabana-mahmood-asylum.webp", publication: "The Guardian", title: "Shabana Mahmood on new powers to tackle people-smuggling gangs", description: "Guardian coverage of the Home Secretary's announcement on border security and asylum policy." },
-    { file: "guardian-shabana-mahmood-asylum (9).webp", publication: "The Guardian", title: "Shabana Mahmood on new powers to tackle people-smuggling gangs", description: "Alternate placement from the same Guardian story." },
-    { file: "mirror-shabana-mahmood.webp", publication: "Mirror", title: "Shabana Mahmood, Home Secretary", description: "Mirror news coverage featuring the Home Secretary.", verify: true },
-    { file: "mirror-shabana-mahmood (4).webp", publication: "Mirror", title: "Shabana Mahmood, Home Secretary", description: "Alternate placement from the same Mirror story.", verify: true },
-    { file: "newsela-girls-who-game.webp", publication: "Newsela", title: "The Girls Who Game", description: "Classroom-adapted version (Buffalo News / Tribune Content Agency, via Newsela) of a feature on girls building and livestreaming in Minecraft, levelled for upper elementary-middle school." },
-    { file: "newsela-girls-who-game (5).webp", publication: "Newsela", title: "The Girls Who Game", description: "Alternate placement from the same Newsela feature." },
-    { file: "novosti-volodymyr-zelenskyy.webp", publication: "Novosti", title: "Volodymyr Zelenskyy", description: "Regional Balkan press coverage featuring Ukrainian President Volodymyr Zelenskyy.", verify: true },
-    { file: "novosti-volodymyr-zelenskyy (8).webp", publication: "Novosti", title: "Volodymyr Zelenskyy", description: "Alternate placement from the same Novosti story.", verify: true },
-    { file: "reason-england-fans-world-cup.webp", publication: "Reason", title: "England Fans Warned Not To Chant 'Keir Starmer's a Wanker' at World Cup", description: "Reason's coverage of England supporters and crowd conduct at the World Cup, referencing the Prime Minister." },
-    { file: "msn-shabana-mahmood.webp", publication: "MSN", title: "Shabana Mahmood, Home Secretary", description: "MSN syndicated pickup of Home Secretary coverage.", verify: true },
-    { file: "ntb-dan-jarvis.webp", publication: "NTB", title: "Dan Jarvis", description: "Norwegian News Agency (NTB) wire coverage of Dan Jarvis's appointment.", verify: true }
+  // Captions below reflect the actual published tear sheets (headline, byline,
+  // date and photo credit as shown on-page). One item is flagged with a note:
+  // the file is named msn-shabana-mahmood.webp but the tear sheet itself is an
+  // MSN "11 Unexpected Queer and Gay Icons" slideshow -- check the filename
+  // before publishing.
+  const stories = [
+    {
+      publication: "Forsvarets Forum",
+      title: "Storbritannia: Jarvis utnevnt som ny forsvarsminister",
+      description: "Den britiske sikkerhetsministeren er utnevnt til toppjobben i Forsvarsdepartementet, etter at John Healey trakk seg i går.",
+      date: "12 Jun 2026",
+      credit: "Ian Davidson / Alamy Live News / NTB",
+      images: ["forsvarets-forum-dan-jarvis.webp", "forsvarets-forum-dan-jarvis (7).webp"]
+    },
+    {
+      publication: "NTB",
+      title: "Dan Jarvis appointed UK defence secretary",
+      description: "Wire distribution of the Dan Jarvis appointment photo via the Norwegian News Agency (NTB), picked up by Forsvarets Forum and other outlets.",
+      date: "12 Jun 2026",
+      credit: "Ian Davidson / Alamy Live News / NTB",
+      images: ["ntb-dan-jarvis.webp"]
+    },
+    {
+      publication: "The Guardian",
+      title: "Capita expects to lose up to £40m over pension scheme fiasco",
+      description: "Outsourcing firm counts cost of failures that left retired UK civil servants without an income for months.",
+      byline: "Zoe Wood",
+      date: "9 Jul 2026",
+      credit: "Ian Davidson / Alamy Live News",
+      images: ["guardian-capita-pensions.webp", "guardian-capita-pensions (6).webp"]
+    },
+    {
+      publication: "The Guardian",
+      title: "Invest in Britain or I'll force you to, minister tells pension funds",
+      description: "Business secretary Peter Kyle says asset managers should feel a patriotic duty to make the UK a success.",
+      byline: "Richard Partington, Senior economics correspondent",
+      date: "9 Jul 2026",
+      credit: "Ian Davidson / Sopa / Shutterstock",
+      images: ["guardian-peter-kyle (2).webp"]
+    },
+    {
+      publication: "The Guardian",
+      title: "Shabana Mahmood's immigration and asylum bill to go before MPs next week",
+      description: "Refugee charities fear controversial changes, including on forced removals and age checks, are being rushed through.",
+      byline: "Rajeev Syal, Home affairs editor",
+      date: "24 Jun 2026",
+      credit: "Ian Davidson / SOPA Images / Shutterstock",
+      images: ["guardian-shabana-mahmood-asylum.webp", "guardian-shabana-mahmood-asylum (9).webp"]
+    },
+    {
+      publication: "Mirror",
+      title: "Shabana Mahmood gains new powers to tackle hostile state activity",
+      description: "Coverage following Royal Assent of the National Security (State Threats) Bill, quoting the Home Secretary: “Keeping our country and communities safe is the first duty of any government.”",
+      date: "Jul 2026",
+      credit: "Ian Davidson / SOPA Images / Shutterstock",
+      images: ["mirror-shabana-mahmood.webp", "mirror-shabana-mahmood (4).webp"]
+    },
+    {
+      publication: "Newsela",
+      title: "Girls Who Game club in Buffalo teaches students about technology with “Minecraft”",
+      description: "The Girls Who Game club at the Herman Badillo Bilingual Academy in Buffalo, New York, teaches girls about technology using Minecraft. Adapted for classroom use, Upper Elementary–Middle School reading level.",
+      byline: "The Buffalo News, N.Y. / Tribune Content Agency, adapted by Newsela staff",
+      date: "originally published 2 Jun 2023",
+      credit: "Ian Davidson / Alamy",
+      images: ["newsela-girls-who-game.webp", "newsela-girls-who-game (5).webp"]
+    },
+    {
+      publication: "Novosti",
+      title: "Zelenskyy support survey",
+      description: "Serbian-language coverage of a public opinion survey as President Zelenskyy's term enters its seventh year — 88% of respondents said they want change at the top of government.",
+      credit: "Ian Davidson / Zuma Press / Profimedia",
+      images: ["novosti-volodymyr-zelenskyy.webp", "novosti-volodymyr-zelenskyy (8).webp"]
+    },
+    {
+      publication: "Reason",
+      title: "England Fans Warned Not To Chant 'Keir Starmer's a Wanker' at World Cup",
+      description: "FIFA can restrict political messaging inside its stadiums, but there is no stopping English football fans from mocking their prime minister elsewhere.",
+      byline: "Reem Ibrahim",
+      date: "17 Jun 2026",
+      credit: "Ian Davidson / SOPA Images / Sipa USA / Newscom",
+      images: ["reason-england-fans-world-cup.webp"]
+    },
+    {
+      publication: "MSN",
+      title: "11 Unexpected Queer and Gay Icons",
+      description: "MSN slideshow feature. Note: this file is named msn-shabana-mahmood.webp but the tear sheet shown is this Pride-event slideshow, not a Shabana Mahmood story — worth double-checking before publishing.",
+      credit: "Ian Davidson / SOPA Images / LightRocket via Getty Images",
+      images: ["msn-shabana-mahmood.webp"]
+    }
   ];
 
   const gallery = document.getElementById("gallery");
   const filtersEl = document.getElementById("filters");
   const statsEl = document.getElementById("stats");
   let activeFilter = "All";
-  let openIndex = -1;
-  let visibleItems = [];
+  let visibleStories = [];
+  let openStoryIndex = -1;
+  let openImageIndex = 0;
 
-  const publications = ["All", ...Array.from(new Set(tearSheets.map(t => t.publication)))];
+  const publications = ["All", ...Array.from(new Set(stories.map(s => s.publication)))];
+  const totalImages = stories.reduce((sum, s) => sum + s.images.length, 0);
 
   function renderStats() {
     statsEl.innerHTML = `
-      <span><strong>${tearSheets.length}</strong>Tear sheets</span>
+      <span><strong>${stories.length}</strong>Placements</span>
+      <span><strong>${totalImages}</strong>Tear sheets</span>
       <span><strong>${publications.length - 1}</strong>Publications</span>
     `;
   }
@@ -301,63 +391,81 @@
   }
 
   function renderGallery() {
-    visibleItems = tearSheets.filter(t => activeFilter === "All" || t.publication === activeFilter);
+    visibleStories = stories.filter(s => activeFilter === "All" || s.publication === activeFilter);
     gallery.innerHTML = "";
-    visibleItems.forEach((item, index) => {
+    visibleStories.forEach((story, index) => {
       const card = document.createElement("article");
       card.className = "card";
+      const badge = story.images.length > 1 ? `<span class="count-badge">${story.images.length} images</span>` : "";
+      const dateHtml = story.date ? `<span class="date">${story.date}</span>` : "";
+      const bylineHtml = story.byline ? `<p class="byline">${story.byline}</p>` : "";
       card.innerHTML = `
-        <button type="button" aria-label="Open ${item.publication} tear sheet: ${item.title}">
+        <button type="button" class="open-btn" aria-label="Open ${story.publication} tear sheet: ${story.title}">
           <div class="card-media">
-            <img src="${item.file}" alt="${item.publication} tear sheet: ${item.title}" loading="lazy">
+            <img src="${story.images[0]}" alt="${story.publication} tear sheet: ${story.title}" loading="lazy">
+            ${badge}
           </div>
         </button>
         <div class="caption">
-          <span class="tag">${item.publication}</span>
-          <h2>${item.title}</h2>
-          <p>${item.description}</p>
-          <p class="credit">Photo: Ian Davidson</p>
+          <div class="tag-row"><span class="tag">${story.publication}</span>${dateHtml}</div>
+          <h2>${story.title}</h2>
+          <p>${story.description}</p>
+          ${bylineHtml}
+          <p class="credit">Photo: ${story.credit}</p>
         </div>
       `;
       const image = card.querySelector("img");
-      const button = card.querySelector("button");
+      const button = card.querySelector(".open-btn");
       image.onerror = () => card.remove();
-      button.onclick = () => openLightbox(index);
+      button.onclick = () => openLightbox(index, 0);
       gallery.appendChild(card);
     });
   }
 
-  function openLightbox(index) {
-    openIndex = index;
-    const item = visibleItems[index];
+  function openLightbox(storyIndex, imageIndex) {
+    openStoryIndex = storyIndex;
+    openImageIndex = imageIndex;
+    renderLightbox();
     const box = document.getElementById("lightbox");
-    const image = document.getElementById("lightboxImage");
-    const caption = document.getElementById("lightboxCaption");
-    image.src = item.file;
-    image.alt = `${item.publication} tear sheet: ${item.title}`;
-    caption.innerHTML = `<strong>${item.publication}</strong> &mdash; ${item.title}<br>${item.description}`;
     box.classList.add("open");
     box.setAttribute("aria-hidden", "false");
   }
 
-  function stepLightbox(dir) {
-    if (openIndex < 0) return;
-    const next = (openIndex + dir + visibleItems.length) % visibleItems.length;
-    openLightbox(next);
+  function renderLightbox() {
+    const story = visibleStories[openStoryIndex];
+    const file = story.images[openImageIndex];
+    const image = document.getElementById("lightboxImage");
+    const caption = document.getElementById("lightboxCaption");
+    const sub = document.getElementById("lightboxSub");
+    image.src = file;
+    image.alt = `${story.publication} tear sheet: ${story.title}`;
+    caption.innerHTML = `<strong>${story.publication}</strong> &mdash; ${story.title}<br>${story.description}`;
+    const multi = story.images.length > 1 ? ` &middot; image ${openImageIndex + 1} of ${story.images.length}` : "";
+    sub.textContent = `Photo: ${story.credit}${multi}`;
+    const showNav = story.images.length > 1;
+    document.getElementById("navPrev").hidden = !showNav;
+    document.getElementById("navNext").hidden = !showNav;
+  }
+
+  function stepImage(dir) {
+    if (openStoryIndex < 0) return;
+    const story = visibleStories[openStoryIndex];
+    openImageIndex = (openImageIndex + dir + story.images.length) % story.images.length;
+    renderLightbox();
   }
 
   function closeLightbox() {
     const box = document.getElementById("lightbox");
     box.classList.remove("open");
     box.setAttribute("aria-hidden", "true");
-    openIndex = -1;
+    openStoryIndex = -1;
   }
 
   document.addEventListener("keydown", event => {
     if (!document.getElementById("lightbox").classList.contains("open")) return;
     if (event.key === "Escape") closeLightbox();
-    if (event.key === "ArrowRight") stepLightbox(1);
-    if (event.key === "ArrowLeft") stepLightbox(-1);
+    if (event.key === "ArrowRight") stepImage(1);
+    if (event.key === "ArrowLeft") stepImage(-1);
   });
 
   renderStats();
